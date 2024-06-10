@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Assignment</title>
+    <style>
+     body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+button {
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+}
+
+.team {
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f4f4f4;
+}/*
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+button {
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+}
+
+.team {
+    margin-bottom: 20px;
+}
+
+.boys-team, .girls-team {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.boys-team {
+    color: #18f;
+    text-align: center;
+    font-size: 23px;
+}
+
+.girls-team {
+    color: pink;
+      text-align: center;
+    font-size: 23px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f4f4f4;
+}*/
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">Team Assignment</h1>
+    <button onclick="assignTeams()"style="display: flex; justify-content: center; align-items: center;">Assign Teams</button>
+    <div id="teams-container"></div>
+<!--
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+    const teamsContainer = document.getElementById('teams-container');
+
+    // Function to fetch student data from JSON
+    async function fetchStudentData() {
+        const response = await fetch('/test.json');
+        const students = await response.json();
+        return students;
+    }
+
+    // Function to shuffle an array (Fisher-Yates algorithm)
+    function shuffle(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+    }
+
+    // Function to assign students to teams
+    function assignTeams() {
+        fetchStudentData().then(students => {
+            const shuffledStudents = shuffle(students);
+            const teams = [];
+
+            for (let i = 0; i < 10; i++) {
+                teams.push(shuffledStudents.slice(i * 8, i * 8 + 8));
+            }
+
+            displayTeams(teams);
+        });
+    }
+
+    // Function to display teams in the HTML
+    function displayTeams(teams) {
+        teamsContainer.innerHTML = ''; // Clear previous teams
+
+        teams.forEach((team, index) => {
+            const teamDiv = document.createElement('div');
+            teamDiv.classList.add('team');
+            teamDiv.innerHTML = `<h2>Team ${index + 1}</h2>`;
+
+            const table = document.createElement('table');
+            const headerRow = document.createElement('tr');
+            headerRow.innerHTML = '<th>Name</th><th>Roll</th>';
+            table.appendChild(headerRow);
+
+            team.forEach(student => {
+                const row = document.createElement('tr');
+                row.innerHTML = `<td>${student.name}</td><td>${student.roll}</td>`;
+                table.appendChild(row);
+            });
+
+            teamDiv.appendChild(table);
+            teamsContainer.appendChild(teamDiv);
+        });
+    }
+
+    // Attach assignTeams function to the button
+    window.assignTeams = assignTeams;
+});
+    </script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+    .team {
+    margin-bottom: 20px;
+}
+
+.boys-team, .girls-team {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.boys-team {
+    color: #18f;
+    text-align: center;
+    font-size: 23px;
+    margin-bottom: 20px;
+}
+
+.girls-team {
+    color: pink;
+      text-align: center;
+    font-size: 23px;
+    margin-bottom: 20px;
+}
+.team-wrapper {
+    margin-bottom: 20px; /* Adjust the spacing as needed */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    
+  
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f4f4f4;
+}
+#hr {
+    
+  }
+  

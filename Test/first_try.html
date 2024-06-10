@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>School Grouping || CodeZwanymous</title>
+  <link rel="stylesheet" href="./style.css">
+  <style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+    .team {
+    margin-bottom: 20px;
+}
+
+.boys-team, .girls-team {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.boys-team {
+    color: #18f;
+    text-align: center;
+    font-size: 23px;
+    margin-bottom: 20px;
+}
+
+.girls-team {
+    color: pink;
+      text-align: center;
+    font-size: 23px;
+    margin-bottom: 20px;
+}
+.team-wrapper {
+    margin-bottom: 20px; /* Adjust the spacing as needed */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+  
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f4f4f4;
+}
+#hr {
+    
+  }
+  
+  </style>
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div class="container" style="margin-left: 105px; margin-top: 80px; margin-bottom: 30px;">
+  <a class="button" href="#" style="--color:#1e9bff;" onclick="assignTeams()" id="assign-teams-btn">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    Group
+  </a>
+  <!--
+  <a class="button" href="#" style="--color: #ff1867;">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    Button
+  </a>
+  <a class="button" href="#" style="--color: #6eff3e;">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    Button
+  </a>-->
+</div>
+<br>
+<!-- partial --
+            <div style="text-align: center;">
+  <hr style="border: none; height: 1px; background-color: #dfe3eb; margin-bottom: 15px; margin-top: 0px;">
+  <span style="background-color: white; padding: 0 10px;"></span>
+</div>
+    <br>-->
+    <div id="teams-container"></div>
+   <img src="/1717043048416.jpg" alt="" style="width: 70px; Border-radius: 100px;">
+   <p style="color: grey; text-align: center; font-size: 12px; margin-left: 50px; margin-top: -53px;">Hazi Abdul Awal High School <br><span style="margin-top: 2px; font-size: 11px;">All Rights Reserve</span></p>
+   <br>
+       <script>
+      document.addEventListener("DOMContentLoaded", function() {
+    const teamsContainer = document.getElementById('teams-container');
+
+    // Function to fetch student data from JSON
+    async function fetchStudentData() {
+        const response = await fetch('/test.json');
+        const students = await response.json();
+        return students;
+    }
+
+    // Function to shuffle an array (Fisher-Yates algorithm)
+    function shuffle(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+    }
+
+    // Function to assign students to teams based on gender
+    function assignTeams() {
+        fetchStudentData().then(students => {
+            const boys = shuffle(students.filter(student => student.gender === 'boy'));
+            const girls = shuffle(students.filter(student => student.gender === 'girl'));
+
+            const boyTeams = createTeams(boys);
+            const girlTeams = createTeams(girls);
+
+            displayTeams(boyTeams, "Boys Team", "boys-team");
+            displayTeams(girlTeams, "Girls Team", "girls-team");
+        });
+    }
+
+    // Function to create teams with a maximum of 8 members each
+    function createTeams(students) {
+        const teams = [];
+        while (students.length) {
+            teams.push(students.splice(0, 8));
+        }
+        return teams;
+    }
+
+    // Function to display teams in the HTML
+    function displayTeams(teams, teamType, teamClass) {
+        const header = document.createElement('h1');
+        header.textContent = teamType;
+        header.classList.add(teamClass);
+        teamsContainer.appendChild(header);
+
+        teams.forEach((team, index) => {
+            const table = document.createElement('table');
+            const headerRow = document.createElement('tr');
+            headerRow.innerHTML = '<th>Name</th><th>Roll</th>';
+            table.appendChild(headerRow);
+
+            team.forEach(student => {
+                const row = document.createElement('tr');
+                row.innerHTML = `<td>${student.name}</td><td>${student.roll}</td>`;
+                table.appendChild(row);
+            });
+
+            const teamWrapper = document.createElement('div');
+            teamWrapper.classList.add('team-wrapper');
+            teamWrapper.appendChild(table);
+            teamsContainer.appendChild(teamWrapper);
+        });
+    }
+
+    // Attach assignTeams function to the button
+    document.getElementById('assign-teams-btn').addEventListener('click', function() {
+        // Clear previous teams
+        teamsContainer.innerHTML = '';
+        // Assign new teams
+        assignTeams();
+    });
+
+    // Initial assignment of teams
+    assignTeams();
+});
+    </script>
+</body>
+</html>
